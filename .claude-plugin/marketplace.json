@@ -1,0 +1,17 @@
+{
+  "name": "claude-d2-diagrams",
+  "description": "D2 diagram generation plugins for Claude Code",
+  "owner": {
+    "name": "heathdutton"
+  },
+  "plugins": [
+    {
+      "name": "d2",
+      "description": "Generate comprehensive infrastructure and architecture diagrams using D2",
+      "source": {
+        "source": "github",
+        "repo": "heathdutton/claude-d2-diagrams"
+      }
+    }
+  ]
+}
