@@ -99,14 +99,21 @@ icon_count=$(grep -c "icon:" ./diagrams/architecture-simplified.d2 || echo 0)
 [ "$icon_count" -ge 3 ] && echo "PASS: $icon_count icons" || echo "FAIL: only $icon_count icons (need 3+)"
 ```
 
-**Check SVGs have embedded icons:**
+**Check SVGs have inlined icons (no `<image>` tags for GitHub compatibility):**
 ```bash
-# Bundled SVGs MUST contain embedded images
-image_count=$(grep -o "<image " ./diagrams/infrastructure-simplified-light.svg | wc -l | tr -d ' ')
-[ "$image_count" -ge 1 ] && echo "PASS: $image_count embedded icons" || echo "FAIL: no embedded icons - renderer did not add icon: properties"
+# After Phase 8, SVGs should have inline <svg> elements, NOT <image> tags
+# GitHub strips <image> tags, so icons must be inlined
+image_count=$(grep -c "<image " ./diagrams/infrastructure-simplified-light.svg 2>/dev/null || echo 0)
+[ "$image_count" -eq 0 ] && echo "PASS: icons inlined for GitHub" || echo "FAIL: $image_count <image> tags remain - run inline-svg-icons.sh"
+
+# Verify nested SVGs exist (inlined icons)
+nested_svg_count=$(grep -o "<svg " ./diagrams/infrastructure-simplified-light.svg | wc -l | tr -d ' ')
+[ "$nested_svg_count" -ge 2 ] && echo "PASS: $nested_svg_count SVG elements (1 root + icons)" || echo "WARN: few nested SVGs"
 ```
 
-**If icons are missing**, the Renderer agent failed to add `icon:` properties to nodes. Re-run Phase 7 with emphasis on icon URLs.
+**If `<image>` tags remain**, run `${CLAUDE_PLUGIN_ROOT}/scripts/inline-svg-icons.sh --all ./diagrams/`
+
+**If icons are missing entirely**, the Renderer agent failed to add `icon:` properties to nodes. Re-run Phase 7.
 
 ### Phase 5: SVG Quality
 

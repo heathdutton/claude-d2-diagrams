@@ -881,14 +881,20 @@ ERROR RECOVERY:
 
 **Model hint**: Use sonnet for reliable SVG processing.
 
-**RECOMMENDED METHOD**: Use the plugin's enhancement script for all 8 SVGs:
+**Step 1 - Inline SVG icons for GitHub compatibility:**
+```bash
+${CLAUDE_PLUGIN_ROOT}/scripts/inline-svg-icons.sh --all ./diagrams/
+```
+GitHub strips `<image>` tags for security. This converts them to inline `<svg>` elements which GitHub allows.
+
+**Step 2 - Add CSS animations:**
 ```bash
 ${CLAUDE_PLUGIN_ROOT}/scripts/enhance-svg.sh --all ./diagrams/
 ```
 
 **IMPORTANT**: Always use the plugin's built-in scripts. Do NOT write scripts to the target repository.
 
-This script:
+The enhance script:
 1. Reads CSS from `./diagrams/animations.css`
 2. Injects it into each SVG after the `<svg>` tag
 3. Uses identical CSS for light and dark themes (D2 handles theme colors)

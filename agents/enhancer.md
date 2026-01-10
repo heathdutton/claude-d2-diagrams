@@ -63,18 +63,25 @@ text, tspan, textPath {
 
 ## Enhancement Process
 
-**RECOMMENDED**: Use the plugin's built-in enhancement script:
+**Step 1 - Inline SVG icons for GitHub compatibility:**
+```bash
+${CLAUDE_PLUGIN_ROOT}/scripts/inline-svg-icons.sh --all ./diagrams/
+```
+
+This converts `<image>` tags (which GitHub strips) to inline `<svg>` elements (which GitHub allows). Required for icons to display on GitHub.
+
+**Step 2 - Add CSS animations:**
 ```bash
 ${CLAUDE_PLUGIN_ROOT}/scripts/enhance-svg.sh --all ./diagrams/
 ```
-
-**IMPORTANT**: Do NOT write scripts to the target repository. All scripts are in the plugin.
 
 This script:
 1. Reads CSS from `./diagrams/animations.css`
 2. Injects it into each SVG after the `<svg>` tag
 3. Uses identical CSS for light and dark themes
 4. Falls back to minimal safe CSS if file not found
+
+**IMPORTANT**: Do NOT write scripts to the target repository. All scripts are in the plugin.
 
 ## What NOT to Do
 
