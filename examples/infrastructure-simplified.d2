@@ -1,0 +1,92 @@
+direction: right
+
+# Define classes
+classes: {
+  edge: {
+    style.stroke: "#1565C0"
+    style.stroke-width: 3
+  }
+  compute: {
+    style.stroke: "#00838F"
+    style.stroke-width: 3
+  }
+  data: {
+    style.stroke: "#E65100"
+    style.stroke-width: 3
+  }
+  messaging: {
+    style.stroke: "#FF8F00"
+    style.stroke-width: 3
+  }
+  external: {
+    style.stroke: "#C62828"
+    style.stroke-width: 3
+    shape: cloud
+  }
+}
+
+# External
+clients: External Clients {class: external}
+
+# AWS Cloud boundary
+aws: AWS Cloud (us-east-1) {
+  # Edge
+  edge: Edge Layer {
+    alb: Load Balancer (ALB) {class: edge}
+  }
+
+  # Compute
+  compute: Application Layer (ECS Fargate) {
+    api: API Service\n(3 instances) {class: compute}
+    workers: Background Workers\n(Jobs, Events, Notifications) {class: compute}
+  }
+
+  # Messaging
+  messaging: Message Broker (MSK Kafka) {class: messaging}
+
+  # Data
+  data: Data Layer {
+    database: Database (Aurora PostgreSQL)\n1 writer + 2 readers {class: data}
+    cache: Cache (ElastiCache Redis)\n32GB cluster {class: data}
+    sessions: Session Store (DynamoDB)\nuser_sessions table {class: data}
+    documents: Document Store (S3)\nUploads bucket {class: data}
+  }
+}
+
+# External services
+monitoring: Observability (Datadog) {class: external}
+cdn: CDN (CloudFront) {class: external}
+
+# Client flow
+clients -> cdn: "Static assets"
+cdn -> aws.edge.alb: "Origin requests"
+clients -> aws.edge.alb: "API requests"
+aws.edge.alb -> aws.compute.api: "Route traffic"
+
+# API to messaging
+aws.compute.api -> aws.messaging: "Publish events" {
+  style.stroke-dash: 5
+}
+
+# Messaging to workers
+aws.messaging -> aws.compute.workers: "Consume events" {
+  style.stroke-dash: 5
+}
+
+# API to data stores
+aws.compute.api -> aws.data.database: "Read/write"
+aws.compute.api -> aws.data.cache: "Session cache"
+aws.compute.api -> aws.data.sessions: "Auth tokens"
+
+# Workers to data stores
+aws.compute.workers -> aws.data.database: "Query data"
+aws.compute.workers -> aws.data.cache: "Cache updates"
+aws.compute.workers -> aws.data.documents: "File processing"
+
+# Monitoring
+aws.compute.api -> monitoring: "APM/Metrics" {
+  style.stroke-dash: 3
+}
+aws.compute.workers -> monitoring: "APM/Metrics" {
+  style.stroke-dash: 3
+}

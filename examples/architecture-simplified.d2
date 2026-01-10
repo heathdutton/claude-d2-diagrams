@@ -1,0 +1,88 @@
+direction: down
+
+# Define classes
+classes: {
+  api: {
+    style.stroke: "#3949AB"
+    style.stroke-width: 3
+  }
+  processing: {
+    style.stroke: "#00838F"
+    style.stroke-width: 3
+  }
+  data: {
+    style.stroke: "#E65100"
+    style.stroke-width: 3
+  }
+  external: {
+    style.stroke: "#C62828"
+    style.stroke-width: 3
+    shape: cloud
+  }
+}
+
+# External
+users: End Users\n(Web & Mobile) {class: external}
+partners: Partner Systems\n(API Integrations) {class: external}
+
+# System layers
+system: Platform Core (Go Monolith) {
+  # API
+  gateway: API Gateway\n(REST + GraphQL, JWT auth) {class: api}
+
+  # Message Broker
+  broker: Message Broker (Kafka)\nevents, commands, logs {class: processing}
+
+  # Processing
+  processing: Processing Services {
+    orders: Order Processor\n(Validation, pricing) {class: processing}
+    notifications: Notification Service\n(Email, SMS, push) {class: processing}
+    analytics: Analytics Pipeline\n(Event aggregation) {class: processing}
+  }
+
+  # Data
+  data: Data Layer {
+    primary: Primary Database (PostgreSQL)\nUsers, orders, products {class: data}
+    cache: Fast Cache (Redis)\nSessions, rate limits {class: data}
+    search: Search Index (Elasticsearch)\nProduct catalog {class: data}
+    files: Object Storage (S3)\nMedia uploads {class: data}
+  }
+}
+
+# External services
+payments: Payment Gateway\n(Stripe) {class: external}
+monitoring: Observability (Datadog)\nAPM, metrics, logs {class: external}
+
+# Data flow
+users -> system.gateway: "HTTPS requests"
+partners -> system.gateway: "API calls"
+
+system.gateway -> system.data.primary: "User lookup"
+system.gateway -> system.broker: "Publish commands" {
+  style.stroke-dash: 5
+}
+
+system.broker -> system.processing.orders: "Order events" {
+  style.stroke-dash: 5
+}
+system.broker -> system.processing.notifications: "Notification events" {
+  style.stroke-dash: 5
+}
+system.broker -> system.processing.analytics: "All events" {
+  style.stroke-dash: 5
+}
+
+system.processing.orders -> system.data.primary: "Order records"
+system.processing.orders -> system.data.cache: "Inventory cache"
+system.processing.orders -> payments: "Process payments"
+
+system.processing.notifications -> system.data.primary: "User preferences"
+system.processing.analytics -> system.data.search: "Index updates"
+
+# Monitoring
+system.gateway -> monitoring: "Traces" {
+  style.stroke-dash: 3
+}
+system.processing.orders -> monitoring: "Traces" {
+  style.stroke-dash: 3
+}

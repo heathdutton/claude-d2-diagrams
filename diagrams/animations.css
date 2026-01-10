@@ -1,0 +1,108 @@
+/* D2 Diagram Animations
+ * =====================
+ * Auto-injected into SVGs by enhance-svg.sh
+ *
+ * This file is copied to your project's ./diagrams/ folder during generation.
+ * You can customize it for project-specific animation styles.
+ *
+ * WHAT THIS FILE DOES:
+ * - Adds animated dashed lines to connection arrows (traffic flow effect)
+ * - Adds subtle opacity pulse to database/queue shapes
+ * - Protects text from any animation side effects
+ *
+ * DESIGN PRINCIPLES:
+ * 1. Only modify connection paths (arrows) - never text or fills
+ * 2. Use specific selectors - avoid wildcards that could match unintended elements
+ * 3. Animations are additive - don't override D2's colors or text styles
+ * 4. Same CSS for light and dark themes - D2 handles color schemes
+ * 5. Respect accessibility - honor prefers-reduced-motion
+ *
+ * TO CUSTOMIZE:
+ * - Edit this file in your project's ./diagrams/ folder
+ * - Changes will be preserved (plugin won't overwrite existing files)
+ * - Re-run enhance-svg.sh after changes: ./scripts/enhance-svg.sh --all ./diagrams/
+ */
+
+/* ===========================================
+   KEYFRAME DEFINITIONS
+   =========================================== */
+
+/* Offset must equal dasharray total (dash + gap) for seamless loop */
+@keyframes traffic-flow {
+  0% { stroke-dashoffset: 12; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes traffic-flow-slow {
+  0% { stroke-dashoffset: 18; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* ===========================================
+   CONNECTION PATH ANIMATIONS
+   Target only arrow paths, not shapes or text
+   =========================================== */
+
+/* D2 marks arrow paths with marker-end attribute */
+path[marker-end] {
+  stroke-dasharray: 8 4;
+  animation: traffic-flow 1s linear infinite;
+}
+
+/* Paths that D2 already made dashed (async) - slower animation */
+path[marker-end][stroke-dasharray] {
+  stroke-dasharray: 12 6;
+  animation: traffic-flow-slow 2s linear infinite;
+}
+
+/* ===========================================
+   SHAPE ANIMATIONS
+   Very subtle - only opacity, no filters
+   Filters can bleed into text and cause issues
+   =========================================== */
+
+/* Database shapes - subtle pulse */
+.shape-cylinder > path:first-of-type,
+.shape-cylinder > ellipse {
+  animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+/* Queue shapes */
+.shape-queue > path:first-of-type {
+  animation: subtle-pulse 2.5s ease-in-out infinite;
+}
+
+/* ===========================================
+   TEXT PROTECTION
+   Ensure text is NEVER affected by animations
+   =========================================== */
+
+text,
+tspan,
+textPath,
+.text,
+[class*="label"] text {
+  animation: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ===========================================
+   ACCESSIBILITY
+   Respect reduced motion preferences
+   =========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  path[marker-end],
+  path[marker-end][stroke-dasharray],
+  .shape-cylinder > path:first-of-type,
+  .shape-cylinder > ellipse,
+  .shape-queue > path:first-of-type {
+    animation: none;
+  }
+}

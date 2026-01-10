@@ -1,0 +1,12 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime state (when testing plugin locally)
+.diagram/

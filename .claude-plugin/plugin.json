@@ -1,0 +1,10 @@
+{
+  "name": "d2",
+  "version": "1.0.0",
+  "description": "Generate comprehensive infrastructure and architecture diagrams using D2",
+  "author": {
+    "name": "heathdutton"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/heathdutton/claude-d2-diagrams"
+}

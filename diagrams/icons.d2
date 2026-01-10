@@ -1,0 +1,672 @@
+# D2 Icon Classes - Comprehensive Infrastructure Library
+# ======================================================
+#
+# This file provides 100+ icon classes for infrastructure and architecture diagrams.
+# Import at the top of your D2 file: ...@icons.d2
+#
+# TECHNOLOGY MAPPING (use this to pick the right class):
+# ──────────────────────────────────────────────────────
+# MySQL, PostgreSQL, Aurora, MariaDB → aws-rds, gcp-sql, database
+# Redis, Valkey, Memcached, ElastiCache → aws-elasticache, cache, redis
+# DynamoDB, Cassandra, ScyllaDB → aws-dynamodb
+# MongoDB, DocumentDB → mongodb, database
+# Elasticsearch, OpenSearch → elasticsearch
+# S3, GCS, Blob Storage → aws-s3, gcp-storage, azure-blob
+# Kafka, MSK, Kinesis → kafka, aws-kinesis, queue
+# RabbitMQ, SQS, Pub/Sub → rabbitmq, aws-sqs, queue
+# Docker containers → container, docker
+# Kubernetes pods/services → k8s-pod, k8s-service
+# Lambda, Cloud Functions → aws-lambda, gcp-functions
+# EC2, Compute Engine, VMs → aws-ec2, gcp-compute, server
+# Load Balancers → aws-alb, loadbalancer
+# CDN, CloudFront → aws-cloudfront, gcp-cdn
+# API Gateway → aws-api-gateway, api
+# External services → cloud
+# Users/clients → user, users
+# Go applications → golang
+# Python applications → python
+# Node.js applications → nodejs
+# Java applications → java
+#
+# HOW TO USE:
+# 1. Import: ...@icons.d2 (MUST be first line of your D2 file)
+# 2. Apply: mynode: Label {class: aws-rds}
+# 3. Render: d2 --bundle diagram.d2 output.svg
+#
+# TIPS:
+# - Use single-line labels to avoid icon/text overlap
+# - Use --bundle flag to embed icons (avoids CORS issues)
+# - Classes provide both icons AND appropriate shapes/colors
+
+classes: {
+  # ═══════════════════════════════════════════════════════════════
+  # PROGRAMMING LANGUAGES (10 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  golang: {
+    icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    style.stroke: "#00ADD8"
+    style.stroke-width: 3
+  }
+  python: {
+    icon: https://icons.terrastruct.com/dev%2Fpython.svg
+    style.stroke: "#3776AB"
+    style.stroke-width: 3
+  }
+  nodejs: {
+    icon: https://icons.terrastruct.com/dev%2Fnodejs.svg
+    style.stroke: "#339933"
+    style.stroke-width: 3
+  }
+  java: {
+    icon: https://icons.terrastruct.com/dev%2Fjava.svg
+    style.stroke: "#007396"
+    style.stroke-width: 3
+  }
+  rust: {
+    icon: https://icons.terrastruct.com/dev%2Frust.svg
+    style.stroke: "#000000"
+    style.stroke-width: 3
+  }
+  ruby: {
+    icon: https://icons.terrastruct.com/dev%2Fruby.svg
+    style.stroke: "#CC342D"
+    style.stroke-width: 3
+  }
+  php: {
+    icon: https://icons.terrastruct.com/dev%2Fphp.svg
+    style.stroke: "#777BB4"
+    style.stroke-width: 3
+  }
+  typescript: {
+    icon: https://icons.terrastruct.com/dev%2Ftypescript.svg
+    style.stroke: "#3178C6"
+    style.stroke-width: 3
+  }
+  csharp: {
+    icon: https://icons.terrastruct.com/dev%2Fcsharp.svg
+    style.stroke: "#239120"
+    style.stroke-width: 3
+  }
+  scala: {
+    icon: https://icons.terrastruct.com/dev%2Fscala.svg
+    style.stroke: "#DC322F"
+    style.stroke-width: 3
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # DEVOPS & TOOLS (15 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  docker: {
+    icon: https://icons.terrastruct.com/dev%2Fdocker.svg
+    style.stroke: "#2496ED"
+    style.stroke-width: 3
+  }
+  kubernetes: {
+    icon: https://icons.terrastruct.com/dev%2Fkubernetes.svg
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  terraform: {
+    icon: https://icons.terrastruct.com/dev%2Fterraform.svg
+    style.stroke: "#7B42BC"
+    style.stroke-width: 3
+  }
+  github: {
+    icon: https://icons.terrastruct.com/dev%2Fgithub.svg
+    style.stroke: "#181717"
+    style.stroke-width: 3
+  }
+  gitlab: {
+    icon: https://icons.terrastruct.com/dev%2Fgitlab.svg
+    style.stroke: "#FC6D26"
+    style.stroke-width: 3
+  }
+  jenkins: {
+    icon: https://icons.terrastruct.com/dev%2Fjenkins.svg
+    style.stroke: "#D24939"
+    style.stroke-width: 3
+  }
+  nginx: {
+    icon: https://icons.terrastruct.com/dev%2Fnginx.svg
+    style.stroke: "#009639"
+    style.stroke-width: 3
+  }
+  grafana: {
+    icon: https://icons.terrastruct.com/dev%2Fgrafana.svg
+    style.stroke: "#F46800"
+    style.stroke-width: 3
+  }
+  prometheus: {
+    icon: https://icons.terrastruct.com/dev%2Fprometheus.svg
+    style.stroke: "#E6522C"
+    style.stroke-width: 3
+  }
+  datadog: {
+    style.stroke: "#632CA6"
+    style.stroke-width: 3
+    shape: cloud
+  }
+  newrelic: {
+    style.stroke: "#008C99"
+    style.stroke-width: 3
+    shape: cloud
+  }
+  vault: {
+    style.stroke: "#000000"
+    style.stroke-width: 3
+  }
+  consul: {
+    style.stroke: "#CA2171"
+    style.stroke-width: 3
+  }
+  ansible: {
+    style.stroke: "#EE0000"
+    style.stroke-width: 3
+  }
+  argocd: {
+    style.stroke: "#EF7B4D"
+    style.stroke-width: 3
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # DATABASES & DATA STORES (15 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  postgresql: {
+    icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    style.stroke: "#4169E1"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  mysql: {
+    icon: https://icons.terrastruct.com/dev%2Fmysql.svg
+    style.stroke: "#4479A1"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  mongodb: {
+    icon: https://icons.terrastruct.com/dev%2Fmongodb.svg
+    style.stroke: "#47A248"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  redis: {
+    icon: https://icons.terrastruct.com/dev%2Fredis.svg
+    style.stroke: "#DC382D"
+    style.stroke-width: 3
+    shape: hexagon
+  }
+  elasticsearch: {
+    icon: https://icons.terrastruct.com/dev%2Felasticsearch.svg
+    style.stroke: "#005571"
+    style.stroke-width: 3
+  }
+  kafka: {
+    # icon URL returns 403 - using shape only
+    style.stroke: "#231F20"
+    style.stroke-width: 3
+    shape: queue
+  }
+  rabbitmq: {
+    icon: https://icons.terrastruct.com/dev%2Frabbitmq.svg
+    style.stroke: "#FF6600"
+    style.stroke-width: 3
+    shape: queue
+  }
+  cassandra: {
+    style.stroke: "#1287B1"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  neo4j: {
+    style.stroke: "#008CC1"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  influxdb: {
+    style.stroke: "#22ADF6"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  clickhouse: {
+    style.stroke: "#FFCC01"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  snowflake: {
+    style.stroke: "#29B5E8"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  bigquery: {
+    icon: https://icons.terrastruct.com/gcp%2FAnalytics%2FBigQuery.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  redshift: {
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  sqlite: {
+    style.stroke: "#003B57"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # AWS SERVICES (25 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  aws-ec2: {
+    icon: https://icons.terrastruct.com/aws%2FCompute%2FAmazon-EC2.svg
+    style.stroke: "#ED7100"
+    style.stroke-width: 3
+  }
+  aws-s3: {
+    icon: https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+    style.stroke: "#569A31"
+    style.stroke-width: 3
+  }
+  aws-rds: {
+    icon: https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-RDS.svg
+    style.stroke: "#3B48CC"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  aws-lambda: {
+    icon: https://icons.terrastruct.com/aws%2FCompute%2FAWS-Lambda.svg
+    style.stroke: "#ED7100"
+    style.stroke-width: 3
+    shape: parallelogram
+  }
+  aws-ecs: {
+    icon: https://icons.terrastruct.com/aws%2FCompute%2FAmazon-Elastic-Container-Service.svg
+    style.stroke: "#ED7100"
+    style.stroke-width: 3
+  }
+  aws-eks: {
+    icon: https://icons.terrastruct.com/aws%2FCompute%2FAmazon-Elastic-Kubernetes-Service.svg
+    style.stroke: "#ED7100"
+    style.stroke-width: 3
+  }
+  aws-fargate: {
+    icon: https://icons.terrastruct.com/aws%2FCompute%2FAWS-Fargate.svg
+    style.stroke: "#ED7100"
+    style.stroke-width: 3
+  }
+  aws-sqs: {
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+    shape: queue
+  }
+  aws-sns: {
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+  }
+  aws-api-gateway: {
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+  }
+  aws-cloudfront: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FAmazon-CloudFront.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+  }
+  aws-route53: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FAmazon-Route-53.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+  }
+  aws-iam: {
+    style.stroke: "#DD344C"
+    style.stroke-width: 3
+  }
+  aws-vpc: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FAmazon-VPC.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+  }
+  aws-alb: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FElastic-Load-Balancing.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+  }
+  aws-nlb: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FElastic-Load-Balancing.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+  }
+  aws-dynamodb: {
+    icon: https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-DynamoDB.svg
+    style.stroke: "#3B48CC"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  aws-elasticache: {
+    icon: https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-ElastiCache.svg
+    style.stroke: "#3B48CC"
+    style.stroke-width: 3
+  }
+  aws-secrets: {
+    style.stroke: "#DD344C"
+    style.stroke-width: 3
+  }
+  aws-cloudwatch: {
+    icon: https://icons.terrastruct.com/aws%2FManagement%2FAmazon-CloudWatch.svg
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+  }
+  aws-kinesis: {
+    icon: https://icons.terrastruct.com/aws%2FAnalytics%2FAmazon-Kinesis.svg
+    style.stroke: "#8C4FFF"
+    style.stroke-width: 3
+    shape: queue
+  }
+  aws-step-functions: {
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+  }
+  aws-eventbridge: {
+    style.stroke: "#B0084D"
+    style.stroke-width: 3
+  }
+  aws-cognito: {
+    style.stroke: "#DD344C"
+    style.stroke-width: 3
+  }
+  aws-msk: {
+    style.stroke: "#3B48CC"
+    style.stroke-width: 3
+    shape: queue
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # GCP SERVICES (12 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  gcp-compute: {
+    icon: https://icons.terrastruct.com/gcp%2FCompute%2FCompute-Engine.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-storage: {
+    icon: https://icons.terrastruct.com/gcp%2FStorage%2FCloud-Storage.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-sql: {
+    icon: https://icons.terrastruct.com/gcp%2FDatabases%2FCloud-SQL.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  gcp-functions: {
+    icon: https://icons.terrastruct.com/gcp%2FCompute%2FCloud-Functions.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: parallelogram
+  }
+  gcp-gke: {
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-pubsub: {
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: queue
+  }
+  gcp-run: {
+    icon: https://icons.terrastruct.com/gcp%2FCompute%2FCloud-Run.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-bigquery: {
+    icon: https://icons.terrastruct.com/gcp%2FAnalytics%2FBigQuery.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-firestore: {
+    icon: https://icons.terrastruct.com/gcp%2FDatabases%2FCloud-Firestore.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  gcp-cdn: {
+    icon: https://icons.terrastruct.com/gcp%2FNetworking%2FCloud-CDN.svg
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+  }
+  gcp-spanner: {
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  gcp-memorystore: {
+    style.stroke: "#4285F4"
+    style.stroke-width: 3
+    shape: hexagon
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # AZURE SERVICES (12 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  azure-vm: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+  azure-blob: {
+    icon: https://icons.terrastruct.com/azure%2FStorage%2FBlob-Storage.svg
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+  azure-sql: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  azure-functions: {
+    icon: https://icons.terrastruct.com/azure%2FCompute%2FFunction-Apps.svg
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: parallelogram
+  }
+  azure-aks: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+  azure-servicebus: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: queue
+  }
+  azure-cosmos: {
+    icon: https://icons.terrastruct.com/azure%2FDatabases%2FAzure-Cosmos-DB.svg
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  azure-cdn: {
+    icon: https://icons.terrastruct.com/azure%2FNetworking%2FCDN-Profiles.svg
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+  azure-redis: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: hexagon
+  }
+  azure-appservice: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+  azure-eventhub: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+    shape: queue
+  }
+  azure-keyvault: {
+    style.stroke: "#0078D4"
+    style.stroke-width: 3
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # KUBERNETES (12 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  k8s-pod: {
+    icon: https://icons.terrastruct.com/dev%2Fkubernetes.svg
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-service: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-deployment: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-ingress: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-configmap: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-secret: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-pv: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+    shape: cylinder
+  }
+  k8s-statefulset: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-daemonset: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-job: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-cronjob: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+  k8s-namespace: {
+    style.stroke: "#326CE5"
+    style.stroke-width: 3
+  }
+
+  # ═══════════════════════════════════════════════════════════════
+  # GENERIC / COMMON (20 classes)
+  # ═══════════════════════════════════════════════════════════════
+
+  database: {
+    icon: https://icons.terrastruct.com/essentials%2F119-database.svg
+    shape: cylinder
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  server: {
+    icon: https://icons.terrastruct.com/tech%2F022-server.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  user: {
+    icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+    shape: person
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  users: {
+    icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  cloud: {
+    shape: cloud
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  queue: {
+    shape: queue
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  cache: {
+    shape: hexagon
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  api: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  web: {
+    icon: https://icons.terrastruct.com/tech%2Fbrowser-2.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  mobile: {
+    icon: https://icons.terrastruct.com/tech%2F114-smartphone.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  email: {
+    icon: https://icons.terrastruct.com/essentials%2F062-email.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  storage: {
+    shape: stored_data
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  container: {
+    icon: https://icons.terrastruct.com/dev%2Fdocker.svg
+    style.stroke: "#2496ED"
+    style.stroke-width: 3
+  }
+  loadbalancer: {
+    icon: https://icons.terrastruct.com/aws%2FNetworking%2FElastic-Load-Balancing.svg
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  firewall: {
+    style.stroke: "#DC2626"
+    style.stroke-width: 3
+  }
+  gateway: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  worker: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  scheduler: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+  cdn: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+    shape: cloud
+  }
+  dns: {
+    style.stroke: "#6B7280"
+    style.stroke-width: 3
+  }
+}
