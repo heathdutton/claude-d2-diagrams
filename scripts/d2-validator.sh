@@ -75,5 +75,37 @@ EOF
   exit 1
 fi
 
+# Check for icon usage (warn if missing, unless rules.md disables icons)
+ICON_COUNT=$(grep -c "icon:" "$FILE_PATH" 2>/dev/null || echo 0)
+NODE_COUNT=$(grep -cE "^[a-zA-Z0-9_-]+:" "$FILE_PATH" 2>/dev/null || echo 0)
+
+# Check if icons are disabled via rules.md
+ICONS_DISABLED=false
+if [[ -f "./diagrams/rules.md" ]]; then
+  if grep -qi "disable.*icon\|no.*icon\|skip.*icon\|icons.*false\|icons.*disabled" "./diagrams/rules.md" 2>/dev/null; then
+    ICONS_DISABLED=true
+  fi
+fi
+
+# Warn if few icons detected (unless disabled)
+if [[ "$ICONS_DISABLED" == "false" ]] && [[ $NODE_COUNT -gt 3 ]] && [[ $ICON_COUNT -lt 3 ]]; then
+  cat << EOF
+Warning: Few icons detected in $FILE_PATH
+- Found $ICON_COUNT icon: properties for $NODE_COUNT nodes
+- Icons require direct icon: URLs on nodes (class: alone won't work with --bundle)
+
+Example of correct icon usage:
+  database: MySQL {
+    class: mysql
+    icon: https://icons.terrastruct.com/dev%2Fmysql.svg
+  }
+
+To disable this warning, add to ./diagrams/rules.md:
+  ## Icons
+  - Disable icons
+
+EOF
+fi
+
 echo "D2 validation passed: $FILE_PATH"
 exit 0

@@ -1,10 +1,16 @@
 #!/bin/bash
-# inject-icons.sh - Extract and inline only the needed icon classes into a D2 file
+# inject-icons.sh - Extract and inline styling class definitions into a D2 file
 #
-# Instead of copying icons.d2 to every project, this script:
+# This script inlines STYLING classes (shapes, colors, stroke widths) from icons.d2.
+# It does NOT add icon: URLs - those must be added directly to nodes for --bundle to work.
+#
+# What this script does:
 # 1. Scans a D2 file for {class: xyz} references
-# 2. Extracts only those class definitions from the plugin's icons.d2
+# 2. Extracts those class definitions (styling only) from the plugin's icons.d2
 # 3. Inlines them at the top of the D2 file
+#
+# IMPORTANT: For icons to appear in bundled SVGs, you must ALSO add icon: properties
+# directly to nodes. The class: property only provides styling (shape, stroke color).
 #
 # Usage: ./inject-icons.sh <d2-file>
 #        ./inject-icons.sh --all <directory>

@@ -1,6 +1,6 @@
 direction: down
 
-# Define classes
+# Define styling classes (shapes and colors only - icons are added directly to nodes)
 classes: {
   api: {
     style.stroke: "#3949AB"
@@ -22,36 +22,78 @@ classes: {
 }
 
 # External
-users: End Users\n(Web & Mobile) {class: external}
-partners: Partner Systems\n(API Integrations) {class: external}
+users: End Users (Web & Mobile) {
+  class: external
+  icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+}
+partners: Partner Systems (API Integrations) {
+  class: external
+  icon: https://icons.terrastruct.com/tech%2F022-server.svg
+}
 
 # System layers
 system: Platform Core (Go Monolith) {
   # API
-  gateway: API Gateway\n(REST + GraphQL, JWT auth) {class: api}
+  gateway: API Gateway (REST + GraphQL) {
+    class: api
+    icon: https://icons.terrastruct.com/dev%2Fgo.svg
+  }
 
   # Message Broker
-  broker: Message Broker (Kafka)\nevents, commands, logs {class: processing}
+  broker: Message Broker (Kafka) {
+    class: processing
+    shape: queue
+    # Note: Kafka icon URL returns 403, using shape-only
+  }
 
   # Processing
   processing: Processing Services {
-    orders: Order Processor\n(Validation, pricing) {class: processing}
-    notifications: Notification Service\n(Email, SMS, push) {class: processing}
-    analytics: Analytics Pipeline\n(Event aggregation) {class: processing}
+    orders: Order Processor (Go) {
+      class: processing
+      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    }
+    notifications: Notification Service (Go) {
+      class: processing
+      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    }
+    analytics: Analytics Pipeline (Go) {
+      class: processing
+      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    }
   }
 
   # Data
   data: Data Layer {
-    primary: Primary Database (PostgreSQL)\nUsers, orders, products {class: data}
-    cache: Fast Cache (Redis)\nSessions, rate limits {class: data}
-    search: Search Index (Elasticsearch)\nProduct catalog {class: data}
-    files: Object Storage (S3)\nMedia uploads {class: data}
+    primary: Primary Database (PostgreSQL) {
+      class: data
+      shape: cylinder
+      icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    cache: Fast Cache (Redis) {
+      class: data
+      shape: hexagon
+      icon: https://icons.terrastruct.com/dev%2Fredis.svg
+    }
+    search: Search Index (Elasticsearch) {
+      class: data
+      shape: cylinder
+    }
+    files: Object Storage (S3) {
+      class: data
+      icon: https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+    }
   }
 }
 
 # External services
-payments: Payment Gateway\n(Stripe) {class: external}
-monitoring: Observability (Datadog)\nAPM, metrics, logs {class: external}
+payments: Payment Gateway (Stripe) {
+  class: external
+  # Note: Stripe icon not available
+}
+monitoring: Observability (Datadog) {
+  class: external
+  # Note: Datadog icon not available
+}
 
 # Data flow
 users -> system.gateway: "HTTPS requests"

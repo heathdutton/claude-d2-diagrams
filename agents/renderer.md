@@ -6,7 +6,7 @@ Specialized agent for generating D2 diagrams from documentation and converting t
 
 ## Model
 
-Use **sonnet** for balanced diagram generation with good structure.
+Use **opus** for reliable diagram generation with thorough icon handling.
 
 ## Purpose
 
@@ -160,29 +160,65 @@ a -> b: write {
 }
 ```
 
-## Icons and Classes
+## Icons - CRITICAL
 
-**IMPORTANT**: Always include the shared icon classes file at the top of each D2 file.
+**IMPORTANT**: D2's `--bundle` flag does NOT process icon URLs from imported class files. You MUST add icons directly to each node.
+
+### How to Add Icons
+
+Every node that represents a technology should have BOTH:
+1. `class:` - for styling (stroke color, shape)
+2. `icon:` - for the visual icon (direct URL)
 
 ```d2
-# First line of every generated D2 file - imports 64 infrastructure icons
-...@icons.d2
+# CORRECT - icons will appear in bundled SVG:
+database: MySQL Database {
+  class: database
+  icon: https://icons.terrastruct.com/dev%2Fmysql.svg
+}
 
-# Then use icon classes on nodes:
-web-server: Web Server {class: aws-ec2}
-database: PostgreSQL {class: aws-rds}
-queue: Job Queue {class: aws-sqs}
+api: API Gateway (Go) {
+  class: compute
+  icon: https://icons.terrastruct.com/dev%2Fgo.svg
+}
+
+cache: Redis Cache {
+  class: cache
+  icon: https://icons.terrastruct.com/dev%2Fredis.svg
+}
+
+# WRONG - no icon will appear:
+database: MySQL Database {class: mysql}
 ```
 
-### Available Icon Classes (64 total)
+### Icon URL Reference
 
-| Category | Icons |
-|----------|-------|
-| AWS (20) | `aws-ec2`, `aws-s3`, `aws-rds`, `aws-lambda`, `aws-ecs`, `aws-eks`, `aws-sqs`, `aws-sns`, `aws-api-gateway`, `aws-cloudfront`, `aws-route53`, `aws-iam`, `aws-vpc`, `aws-alb`, `aws-dynamodb`, `aws-elasticache`, `aws-secrets`, `aws-cloudwatch`, `aws-kinesis`, `aws-step-functions` |
-| GCP (10) | `gcp-compute`, `gcp-storage`, `gcp-sql`, `gcp-functions`, `gcp-gke`, `gcp-pubsub`, `gcp-run`, `gcp-bigquery`, `gcp-firestore`, `gcp-cdn` |
-| Azure (10) | `azure-vm`, `azure-blob`, `azure-sql`, `azure-functions`, `azure-aks`, `azure-servicebus`, `azure-cosmos`, `azure-cdn`, `azure-redis`, `azure-appservice` |
-| K8s (10) | `k8s-pod`, `k8s-service`, `k8s-deployment`, `k8s-ingress`, `k8s-configmap`, `k8s-secret`, `k8s-pv`, `k8s-statefulset`, `k8s-daemonset`, `k8s-job` |
-| Generic (14) | `database`, `server`, `user`, `users`, `cloud`, `queue`, `cache`, `api`, `web`, `mobile`, `email`, `storage`, `container`, `loadbalancer` |
+| Technology | Icon URL |
+|------------|----------|
+| MySQL | `https://icons.terrastruct.com/dev%2Fmysql.svg` |
+| PostgreSQL | `https://icons.terrastruct.com/dev%2Fpostgresql.svg` |
+| Redis | `https://icons.terrastruct.com/dev%2Fredis.svg` |
+| MongoDB | `https://icons.terrastruct.com/dev%2Fmongodb.svg` |
+| Elasticsearch | `https://icons.terrastruct.com/dev%2Felasticsearch.svg` |
+| Go | `https://icons.terrastruct.com/dev%2Fgo.svg` |
+| Python | `https://icons.terrastruct.com/dev%2Fpython.svg` |
+| Node.js | `https://icons.terrastruct.com/dev%2Fnodejs.svg` |
+| Docker | `https://icons.terrastruct.com/dev%2Fdocker.svg` |
+| Kubernetes | `https://icons.terrastruct.com/dev%2Fkubernetes.svg` |
+| Grafana | `https://icons.terrastruct.com/dev%2Fgrafana.svg` |
+| Prometheus | `https://icons.terrastruct.com/dev%2Fprometheus.svg` |
+| AWS S3 | `https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg` |
+| AWS RDS | `https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-RDS.svg` |
+| AWS DynamoDB | `https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-DynamoDB.svg` |
+| AWS ElastiCache | `https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-ElastiCache.svg` |
+| AWS Lambda | `https://icons.terrastruct.com/aws%2FCompute%2FAWS-Lambda.svg` |
+| AWS ECS | `https://icons.terrastruct.com/aws%2FCompute%2FAmazon-Elastic-Container-Service.svg` |
+| Users | `https://icons.terrastruct.com/essentials%2F359-users.svg` |
+| Server | `https://icons.terrastruct.com/tech%2F022-server.svg` |
+| Cloud | `https://icons.terrastruct.com/essentials%2F152-cloud.svg` |
+
+**Icons returning 403** (use shape-only for these):
+- Kafka, Elasticsearch, AWS Load Balancer, AWS CloudFront, Datadog, Stripe
 
 ## D2 Rendering Commands
 
@@ -202,7 +238,7 @@ queue: Job Queue {class: aws-sqs}
 d2 --bundle ./diagrams/infrastructure.d2 ./diagrams/infrastructure-light.svg --theme 0 --layout elk --animate-interval=1200
 d2 --bundle ./diagrams/infrastructure.d2 ./diagrams/infrastructure-dark.svg --theme 200 --layout elk --animate-interval=1200
 
-# Infrastructure (simplified - 6-12 components)
+# Infrastructure (simplified - 3-8 components)
 d2 --bundle ./diagrams/infrastructure-simplified.d2 ./diagrams/infrastructure-simplified-light.svg --theme 0 --layout elk --animate-interval=1200
 d2 --bundle ./diagrams/infrastructure-simplified.d2 ./diagrams/infrastructure-simplified-dark.svg --theme 200 --layout elk --animate-interval=1200
 
@@ -210,7 +246,7 @@ d2 --bundle ./diagrams/infrastructure-simplified.d2 ./diagrams/infrastructure-si
 d2 --bundle ./diagrams/architecture.d2 ./diagrams/architecture-light.svg --theme 0 --layout elk --animate-interval=1200
 d2 --bundle ./diagrams/architecture.d2 ./diagrams/architecture-dark.svg --theme 200 --layout elk --animate-interval=1200
 
-# Architecture (simplified - 6-12 components)
+# Architecture (simplified - 3-8 components)
 d2 --bundle ./diagrams/architecture-simplified.d2 ./diagrams/architecture-simplified-light.svg --theme 0 --layout elk --animate-interval=1200
 d2 --bundle ./diagrams/architecture-simplified.d2 ./diagrams/architecture-simplified-dark.svg --theme 200 --layout elk --animate-interval=1200
 ```
@@ -225,6 +261,28 @@ d2 --bundle ./diagrams/infrastructure.d2 ./diagrams/infrastructure-dark.svg --th
 ```
 
 ## Diagram Structure Best Practices
+
+### Minimizing Connection Bends
+
+The layout engine (elk) automatically routes connections. To minimize unnecessary bends:
+
+1. **Define connected nodes near each other** in the source file - the layout engine uses source order as a hint
+2. **Use direction hints** at the diagram or container level: `direction: down` or `direction: right`
+3. **Group related nodes** in containers - connections within a container have shorter paths
+4. **Order nodes by data flow** - define nodes in the order data flows through them
+
+```d2
+direction: down
+
+# Good: nodes defined in flow order, minimal bends
+input -> processor -> output
+processor -> database
+
+# Avoid: random order creates crossing connections
+output -> processor
+database -> processor
+input -> processor
+```
 
 ### Grouping
 
@@ -303,6 +361,6 @@ After rendering, verify all 8 SVG files:
 - [ ] infrastructure-simplified-light.svg and infrastructure-simplified-dark.svg exist and are non-empty
 - [ ] architecture-light.svg and architecture-dark.svg exist and are non-empty
 - [ ] architecture-simplified-light.svg and architecture-simplified-dark.svg exist and are non-empty
-- [ ] Simplified diagrams have 6-12 nodes each with technology names in labels
+- [ ] Simplified diagrams have 3-8 nodes each with technology names in labels
 - [ ] No rendering warnings in output
 - [ ] File sizes are reasonable (not truncated)

@@ -33,8 +33,11 @@ The Enhancer agent takes D2-generated SVGs and injects CSS animations for visual
 
 ## CSS Source
 
-All animation CSS is centralized in `./diagrams/animations.css`. This file is:
-- Read by `./scripts/enhance-svg.sh`
+Animation CSS can come from two locations (checked in order):
+1. `./diagrams/animations.css` - Local project customization (if exists)
+2. `${CLAUDE_PLUGIN_ROOT}/diagrams/animations.css` - Plugin default
+
+The CSS is:
 - Used identically for light and dark themes
 - Designed to be additive (doesn't override D2 styles)
 
@@ -60,10 +63,12 @@ text, tspan, textPath {
 
 ## Enhancement Process
 
-**RECOMMENDED**: Use the enhancement script:
+**RECOMMENDED**: Use the plugin's built-in enhancement script:
 ```bash
-./scripts/enhance-svg.sh --all ./diagrams/
+${CLAUDE_PLUGIN_ROOT}/scripts/enhance-svg.sh --all ./diagrams/
 ```
+
+**IMPORTANT**: Do NOT write scripts to the target repository. All scripts are in the plugin.
 
 This script:
 1. Reads CSS from `./diagrams/animations.css`

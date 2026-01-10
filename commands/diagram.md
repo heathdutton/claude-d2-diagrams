@@ -155,7 +155,7 @@ fi
 
 ### Phase 1: Discovery (Scanner Agent)
 
-**Model hint**: Use sonnet for fast parallel discovery.
+**Model hint**: Use haiku for fast parallel discovery.
 
 **Delegate to Scanner agent** with prompt:
 
@@ -508,7 +508,7 @@ TASK: Create a simplified, high-level infrastructure diagram for stakeholders an
 SOURCE MATERIAL:
 Read ./diagrams/infrastructure.md (detailed infrastructure) first.
 
-GOAL: Distill the detailed infrastructure into 6-12 major components that capture the essence of the system.
+GOAL: Distill the detailed infrastructure into 3-8 major components that capture the essence of the system.
 This is for:
 - New team member onboarding
 - Executive/stakeholder presentations
@@ -542,7 +542,7 @@ SIMPLIFICATION RULES:
    - "State Store (DynamoDB)" not just "State"
    - This helps readers quickly understand what's actually running
 
-5. **Target Components**: 6-12 boxes total
+5. **Target Components**: 3-8 boxes total
    - If you have more than 15, you're not simplifying enough
    - If you have fewer than 8, you might be hiding important distinctions
 
@@ -559,7 +559,7 @@ OUTPUT: Create ./diagrams/infrastructure-simplified.md with:
 **Purpose**: [One sentence - what infrastructure function]
 **Contains**: [Brief list of what's aggregated here, if applicable]
 
-[Repeat for 6-12 components]
+[Repeat for 3-8 components]
 
 ## Data Flow
 [Simple description: how traffic flows through the infrastructure]
@@ -574,7 +574,7 @@ OUTPUT: Create ./diagrams/infrastructure-simplified.md with:
 | ... | ... | ... |
 
 SELF-CHECK:
-- [ ] Component count is 6-12
+- [ ] Component count is 3-8
 - [ ] Labels include technology names in parentheses
 - [ ] A technical person can understand what's running
 - [ ] No unnecessary implementation details (instance sizes, versions)
@@ -604,7 +604,7 @@ TASK: Create a simplified, high-level architecture diagram for stakeholders and 
 SOURCE MATERIAL:
 Read ./diagrams/architecture.md (detailed architecture) first.
 
-GOAL: Distill the detailed architecture into 6-12 major components that capture the essence of the system.
+GOAL: Distill the detailed architecture into 3-8 major components that capture the essence of the system.
 This is for:
 - New team member onboarding
 - Executive/stakeholder presentations
@@ -636,7 +636,7 @@ SIMPLIFICATION RULES:
    - "Event Stream (Kafka)" not just "Events"
    - This helps readers quickly understand what's actually running
 
-5. **Target Components**: 6-12 boxes total
+5. **Target Components**: 3-8 boxes total
    - If you have more than 15, you're not simplifying enough
    - If you have fewer than 8, you might be hiding important distinctions
 
@@ -653,7 +653,7 @@ OUTPUT: Create ./diagrams/architecture-simplified.md with:
 **Purpose**: [One sentence - what business function]
 **Contains**: [Brief list of what's aggregated here, if applicable]
 
-[Repeat for 6-12 components]
+[Repeat for 3-8 components]
 
 ## Data Flow
 [Simple numbered list: how data flows through the system]
@@ -670,7 +670,7 @@ OUTPUT: Create ./diagrams/architecture-simplified.md with:
 | ... | ... | ... |
 
 SELF-CHECK:
-- [ ] Component count is 6-12
+- [ ] Component count is 3-8
 - [ ] Labels include technology names in parentheses
 - [ ] A technical person can understand what's running
 - [ ] No unnecessary implementation details (versions, configs)
@@ -689,7 +689,7 @@ SELF-CHECK:
 
 ### Phase 7: Diagram Generation (Renderer Agent)
 
-**Model hint**: Use sonnet for balanced diagram generation.
+**Model hint**: Use opus for reliable diagram generation with thorough icon handling.
 
 **Delegate to Renderer agent** with prompt:
 
@@ -791,11 +791,16 @@ COMMON D2 ERRORS TO AVOID:
 - Do NOT use invalid shape names (valid: rectangle, cylinder, queue, cloud, etc.)
 - Do NOT leave dangling connections (every -> must have valid source and target)
 
+MINIMIZING CONNECTION BENDS:
+- Define connected nodes near each other in source (layout engine uses source order as hint)
+- Always use `direction: down` or `direction: right` at diagram start
+- Group related nodes in containers - connections within containers route better
+- Define nodes in data flow order (input → processing → output)
+
 STEP 4 - Create Infrastructure Diagram (Detailed):
 Create ./diagrams/infrastructure.d2:
-- FIRST LINE must be: ...@icons.d2
-- Apply classes to nodes: mynode: Label {class: aws-ec2}
-- Available classes: aws-ec2, aws-s3, aws-rds, aws-lambda, aws-sqs, database, server, user, cloud, queue, cache, container, loadbalancer (see icons.d2 for full list)
+- **ICONS ARE REQUIRED**: Every technology node MUST have both `class:` (styling) and `icon:` (URL) properties
+- Use the Technology → Icon URL table above for icon URLs
 - Group by: VPC/Region/Environment boundaries
 - Include: ALL compute, data, network, security components
 - Connect: ALL relationships from documentation
@@ -803,19 +808,16 @@ Create ./diagrams/infrastructure.d2:
 
 STEP 5 - Create Infrastructure Diagram (Simplified):
 Create ./diagrams/infrastructure-simplified.d2:
-- FIRST LINE must be: ...@icons.d2
-- Apply classes to nodes: mynode: Label {class: database}
-- GOAL: 6-12 boxes - high-level but informative infrastructure view
+- **ICONS ARE REQUIRED**: Every technology node MUST have both `class:` and `icon:` properties
+- GOAL: 3-8 boxes - high-level but informative infrastructure view
 - Include technology names: "Database (Aurora MySQL)", "Cache (Redis)", "Queue (Kafka)"
 - Aggregate similar resources but keep different technologies separate
 - Show major tiers (Edge, App, Data) with enough detail to be useful
-- Use class: cloud for external/internet, class: user for actors
-- Use simple groupings (e.g., one "Cloud" container)
+- Use the icon URL table for each node's icon
 
 STEP 6 - Create Architecture Diagram (Detailed):
 Create ./diagrams/architecture.d2:
-- FIRST LINE must be: ...@icons.d2
-- Apply classes to nodes for icons and consistent styling
+- **ICONS ARE REQUIRED**: Every technology node MUST have both `class:` and `icon:` properties
 - Structure: Layers (top-to-bottom) or Service Mesh
 - Include: ALL services/modules
 - Connect: ALL dependencies
@@ -823,13 +825,11 @@ Create ./diagrams/architecture.d2:
 
 STEP 7 - Create Architecture Diagram (Simplified):
 Create ./diagrams/architecture-simplified.d2:
-- FIRST LINE must be: ...@icons.d2
-- Apply classes to nodes: mynode: Label {class: server}
-- GOAL: 6-12 boxes - high-level but informative architecture view
+- **ICONS ARE REQUIRED**: Every technology node MUST have both `class:` and `icon:` properties
+- GOAL: 3-8 boxes - high-level but informative architecture view
 - Include technology names: "API Gateway", "Database (PostgreSQL)", "Cache (Redis)"
 - Group related services but keep different technologies separate
 - Show major data flows with enough detail to understand the system
-- Use class: cloud for external systems, class: user for actors
 
 STEP 8 - Validate Before Rendering:
 Mental check for each diagram:
@@ -837,7 +837,8 @@ Mental check for each diagram:
 - [ ] Every relationship from docs is connected
 - [ ] No orphan nodes (everything connects to something)
 - [ ] Labels are meaningful, not generic
-- [ ] Simplified diagrams have 6-12 nodes with technology names
+- [ ] Simplified diagrams have 3-8 nodes with technology names
+- [ ] **EVERY technology node has an `icon:` property with a URL** (CRITICAL)
 
 STEP 9 - Render SVGs (RUN ALL 8 IN PARALLEL):
 Execute these 8 commands simultaneously using parallel Bash tool calls:
@@ -880,10 +881,12 @@ ERROR RECOVERY:
 
 **Model hint**: Use sonnet for reliable SVG processing.
 
-**RECOMMENDED METHOD**: Use the enhancement script for all 8 SVGs:
+**RECOMMENDED METHOD**: Use the plugin's enhancement script for all 8 SVGs:
 ```bash
-./scripts/enhance-svg.sh --all ./diagrams/
+${CLAUDE_PLUGIN_ROOT}/scripts/enhance-svg.sh --all ./diagrams/
 ```
+
+**IMPORTANT**: Always use the plugin's built-in scripts. Do NOT write scripts to the target repository.
 
 This script:
 1. Reads CSS from `./diagrams/animations.css`
@@ -1079,7 +1082,7 @@ Auto-generated diagrams for this project. View the [main README](../README.md) f
 
 ### Phase 10: Verification (Verifier Agent)
 
-**Model hint**: Use sonnet for fast verification.
+**Model hint**: Use haiku for fast verification.
 
 **Delegate to Verifier agent** with prompt:
 
@@ -1113,13 +1116,13 @@ CHECKLIST (check each, report pass/fail):
    [ ] infrastructure.md word count > 150
    [ ] infrastructure-simplified.md has System Summary section
    [ ] infrastructure-simplified.md has Major Components section
-   [ ] infrastructure-simplified.md documents 6-12 components with technology names
+   [ ] infrastructure-simplified.md documents 3-8 components with technology names
    [ ] architecture.md has Overview section
    [ ] architecture.md has Layers/Services section
    [ ] architecture.md word count > 150
    [ ] architecture-simplified.md has System Summary section
    [ ] architecture-simplified.md has Major Components section
-   [ ] architecture-simplified.md documents 6-12 components with technology names
+   [ ] architecture-simplified.md documents 3-8 components with technology names
 
 3. D2 SYNTAX (run these commands for all 4 D2 files):
    [ ] d2 fmt ./diagrams/infrastructure.d2 --check (exit 0)
@@ -1128,11 +1131,11 @@ CHECKLIST (check each, report pass/fail):
    [ ] d2 fmt ./diagrams/architecture-simplified.d2 --check (exit 0)
    [ ] infrastructure.d2 has >= 3 nodes
    [ ] infrastructure.d2 has >= 2 connections (->)
-   [ ] infrastructure-simplified.d2 has 6-12 nodes with technology names in labels
+   [ ] infrastructure-simplified.d2 has 3-8 nodes with technology names in labels
    [ ] infrastructure-simplified.d2 has >= 2 connections (->)
    [ ] architecture.d2 has >= 3 nodes
    [ ] architecture.d2 has >= 2 connections (->)
-   [ ] architecture-simplified.d2 has 6-12 nodes with technology names in labels
+   [ ] architecture-simplified.d2 has 3-8 nodes with technology names in labels
    [ ] architecture-simplified.d2 has >= 2 connections (->)
 
 4. SVG QUALITY (all 8 SVG files):
@@ -1205,11 +1208,39 @@ Include these even if not in IaC:
 - Use blue tones for our brand
 - Group by team ownership
 
+## Icons
+- Disable icons (removes icon requirement and validation warnings)
+- OR: Custom icon mapping:
+  - MySQL → https://example.com/custom-mysql-icon.svg
+  - Redis → https://example.com/custom-redis-icon.svg
+
 ## Documentation Sections
 Add these custom sections:
 - Team Ownership
 - SLA Requirements
 ```
+
+### Icon Customization
+
+By default, icons are **required** on all technology nodes. To customize:
+
+**Disable icons entirely:**
+```markdown
+## Icons
+- Disable icons
+```
+
+**Use custom icon URLs:**
+```markdown
+## Icons
+- MySQL → https://example.com/mysql.svg
+- PostgreSQL → https://example.com/postgres.svg
+```
+
+When icons are disabled:
+- The `icon:` property is not added to nodes
+- Validation warnings for missing icons are suppressed
+- Diagrams rely on `shape:` and `class:` for visual distinction
 
 ---
 

@@ -1,42 +1,52 @@
-# D2 Icon Classes - Comprehensive Infrastructure Library
-# ======================================================
+# D2 Icon Classes - Reference Library
+# ====================================
 #
-# This file provides 100+ icon classes for infrastructure and architecture diagrams.
-# Import at the top of your D2 file: ...@icons.d2
+# This file provides 100+ icon classes for styling reference.
 #
-# TECHNOLOGY MAPPING (use this to pick the right class):
-# ──────────────────────────────────────────────────────
-# MySQL, PostgreSQL, Aurora, MariaDB → aws-rds, gcp-sql, database
-# Redis, Valkey, Memcached, ElastiCache → aws-elasticache, cache, redis
-# DynamoDB, Cassandra, ScyllaDB → aws-dynamodb
-# MongoDB, DocumentDB → mongodb, database
-# Elasticsearch, OpenSearch → elasticsearch
-# S3, GCS, Blob Storage → aws-s3, gcp-storage, azure-blob
-# Kafka, MSK, Kinesis → kafka, aws-kinesis, queue
-# RabbitMQ, SQS, Pub/Sub → rabbitmq, aws-sqs, queue
-# Docker containers → container, docker
-# Kubernetes pods/services → k8s-pod, k8s-service
-# Lambda, Cloud Functions → aws-lambda, gcp-functions
-# EC2, Compute Engine, VMs → aws-ec2, gcp-compute, server
-# Load Balancers → aws-alb, loadbalancer
-# CDN, CloudFront → aws-cloudfront, gcp-cdn
-# API Gateway → aws-api-gateway, api
-# External services → cloud
-# Users/clients → user, users
-# Go applications → golang
-# Python applications → python
-# Node.js applications → nodejs
-# Java applications → java
+# IMPORTANT: D2's --bundle flag does NOT embed icons from imported class files.
+# Instead, add icon: URLs directly to nodes in your D2 source.
 #
-# HOW TO USE:
-# 1. Import: ...@icons.d2 (MUST be first line of your D2 file)
-# 2. Apply: mynode: Label {class: aws-rds}
-# 3. Render: d2 --bundle diagram.d2 output.svg
+# HOW TO USE ICONS (correct approach):
+# ────────────────────────────────────
+# Add BOTH class (for styling) AND icon (for visual) to each node:
+#
+#   database: MySQL Config {
+#     class: mysql
+#     icon: https://icons.terrastruct.com/dev%2Fmysql.svg
+#   }
+#
+# DO NOT rely on importing this file for icons - it won't work with --bundle.
+# This file serves as a REFERENCE for available icon URLs and styling classes.
+#
+# TECHNOLOGY MAPPING (use this to find icon URLs):
+# ────────────────────────────────────────────────
+# MySQL, PostgreSQL, Aurora → dev%2Fmysql.svg, dev%2Fpostgresql.svg
+# Redis, ElastiCache → dev%2Fredis.svg
+# DynamoDB → aws%2FDatabase%2FAmazon-DynamoDB.svg
+# MongoDB → dev%2Fmongodb.svg
+# Elasticsearch → dev%2Felasticsearch.svg
+# S3 → aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+# Kafka → (no icon - URL returns 403, use shape: queue only)
+# Docker → dev%2Fdocker.svg
+# Kubernetes → dev%2Fkubernetes.svg
+# Go → dev%2Fgo.svg
+# Python → dev%2Fpython.svg
+# Node.js → dev%2Fnodejs.svg
+# Users → essentials%2F359-users.svg
+# Server → tech%2F022-server.svg
+#
+# Base URL: https://icons.terrastruct.com/
 #
 # TIPS:
 # - Use single-line labels to avoid icon/text overlap
-# - Use --bundle flag to embed icons (avoids CORS issues)
-# - Classes provide both icons AND appropriate shapes/colors
+# - Always use --bundle flag when rendering to embed icons
+#
+# ICONS RETURNING 403 (use shape-only for these):
+# - Kafka (dev%2Fapache_kafka.svg)
+# - Elasticsearch (dev%2Felasticsearch.svg)
+# - AWS Load Balancer (aws%2FNetworking%2FElastic-Load-Balancing.svg)
+# - AWS CloudFront (aws%2FNetworking%2FAmazon-CloudFront.svg)
+# - Datadog, Stripe, etc. (not available)
 
 classes: {
   # ═══════════════════════════════════════════════════════════════

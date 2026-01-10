@@ -1,6 +1,6 @@
 direction: right
 
-# Define classes
+# Define styling classes (shapes and colors only - icons are added directly to nodes)
 classes: {
   edge: {
     style.stroke: "#1565C0"
@@ -17,6 +17,7 @@ classes: {
   messaging: {
     style.stroke: "#FF8F00"
     style.stroke-width: 3
+    shape: queue
   }
   external: {
     style.stroke: "#C62828"
@@ -26,36 +27,71 @@ classes: {
 }
 
 # External
-clients: External Clients {class: external}
+clients: External Clients {
+  class: external
+  icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+}
 
 # AWS Cloud boundary
 aws: AWS Cloud (us-east-1) {
   # Edge
   edge: Edge Layer {
-    alb: Load Balancer (ALB) {class: edge}
+    alb: Load Balancer (ALB) {
+      class: edge
+      shape: hexagon
+    }
   }
 
   # Compute
   compute: Application Layer (ECS Fargate) {
-    api: API Service\n(3 instances) {class: compute}
-    workers: Background Workers\n(Jobs, Events, Notifications) {class: compute}
+    api: API Service (Go) {
+      class: compute
+      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    }
+    workers: Background Workers (Go) {
+      class: compute
+      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    }
   }
 
   # Messaging
-  messaging: Message Broker (MSK Kafka) {class: messaging}
+  messaging: Message Broker (MSK Kafka) {
+    class: messaging
+    # Note: Kafka icon URL returns 403, using shape-only
+  }
 
   # Data
   data: Data Layer {
-    database: Database (Aurora PostgreSQL)\n1 writer + 2 readers {class: data}
-    cache: Cache (ElastiCache Redis)\n32GB cluster {class: data}
-    sessions: Session Store (DynamoDB)\nuser_sessions table {class: data}
-    documents: Document Store (S3)\nUploads bucket {class: data}
+    database: Database (Aurora PostgreSQL) {
+      class: data
+      shape: cylinder
+      icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+    }
+    cache: Cache (ElastiCache Redis) {
+      class: data
+      shape: hexagon
+      icon: https://icons.terrastruct.com/dev%2Fredis.svg
+    }
+    sessions: Session Store (DynamoDB) {
+      class: data
+      shape: cylinder
+      icon: https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-DynamoDB.svg
+    }
+    documents: Document Store (S3) {
+      class: data
+      icon: https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+    }
   }
 }
 
 # External services
-monitoring: Observability (Datadog) {class: external}
-cdn: CDN (CloudFront) {class: external}
+monitoring: Observability (Datadog) {
+  class: external
+  # Note: Datadog icon not available, using cloud shape
+}
+cdn: CDN (CloudFront) {
+  class: external
+}
 
 # Client flow
 clients -> cdn: "Static assets"

@@ -76,40 +76,37 @@ Required files:
 ### Phase 3: D2 Source Quality
 
 **Infrastructure.d2 checks:**
-- [ ] First line imports icons: `...@icons.d2`
-- [ ] Uses `class:` on nodes for icons (e.g., `{class: aws-ec2}`)
 - [ ] Has at least 3 nodes defined
 - [ ] Has at least 2 connections (->)
 - [ ] No syntax errors (validated by d2 fmt --check)
 
 **Architecture.d2 checks:**
-- [ ] First line imports icons: `...@icons.d2`
-- [ ] Uses `class:` on nodes for icons (e.g., `{class: database}`)
 - [ ] Has at least 3 nodes defined
 - [ ] Has at least 2 connections (->)
 - [ ] No syntax errors (validated by d2 fmt --check)
 
-### Phase 4: Icon Usage Verification
+### Phase 4: Icon Usage Verification - CRITICAL
 
-**Check D2 files have icon URLs for visual icons:**
+**Icons are required for visual quality. Missing icons = FAIL.**
+
+**Check D2 files have icon URLs (required for --bundle):**
 ```bash
-# Count nodes with direct icon: property (needed for --bundle to work)
-grep -c "icon:" ./diagrams/infrastructure-simplified.d2 | awk '{print ($1 >= 3) ? "PASS" : "WARN: few icons"}'
-grep -c "icon:" ./diagrams/architecture-simplified.d2 | awk '{print ($1 >= 3) ? "PASS" : "WARN: few icons"}'
+# MUST have icon: properties - D2's --bundle flag only embeds direct icon URLs
+icon_count=$(grep -c "icon:" ./diagrams/infrastructure-simplified.d2 || echo 0)
+[ "$icon_count" -ge 3 ] && echo "PASS: $icon_count icons" || echo "FAIL: only $icon_count icons (need 3+)"
+
+icon_count=$(grep -c "icon:" ./diagrams/architecture-simplified.d2 || echo 0)
+[ "$icon_count" -ge 3 ] && echo "PASS: $icon_count icons" || echo "FAIL: only $icon_count icons (need 3+)"
 ```
 
-**Check D2 files use styling classes:**
+**Check SVGs have embedded icons:**
 ```bash
-# Should have nodes with class: attribute for consistent styling
-grep -c "{class:" ./diagrams/infrastructure-simplified.d2 | awk '{print ($1 >= 3) ? "PASS" : "FAIL"}'
-grep -c "{class:" ./diagrams/architecture-simplified.d2 | awk '{print ($1 >= 3) ? "PASS" : "FAIL"}'
+# Bundled SVGs MUST contain embedded images
+image_count=$(grep -o "<image " ./diagrams/infrastructure-simplified-light.svg | wc -l | tr -d ' ')
+[ "$image_count" -ge 1 ] && echo "PASS: $image_count embedded icons" || echo "FAIL: no embedded icons - renderer did not add icon: properties"
 ```
 
-**Check SVGs have embedded icons (when using --bundle):**
-```bash
-# Bundled SVGs should contain data:image URIs
-grep -o "<image " ./diagrams/infrastructure-simplified-light.svg | wc -l | awk '{print ($1 >= 1) ? "PASS" : "WARN: no embedded icons"}'
-```
+**If icons are missing**, the Renderer agent failed to add `icon:` properties to nodes. Re-run Phase 7 with emphasis on icon URLs.
 
 ### Phase 5: SVG Quality
 
