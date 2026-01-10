@@ -13,18 +13,27 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 GO_SOURCE="$SCRIPT_DIR/inline-svg-icons.go"
 GO_BINARY="$SCRIPT_DIR/.inline-svg-icons"
 
-# Check if Go is available
+# Check if we need to compile
+need_compile=false
+if [ ! -f "$GO_BINARY" ]; then
+    need_compile=true
+elif [ "$GO_SOURCE" -nt "$GO_BINARY" ]; then
+    need_compile=true
+fi
+
+# If binary exists and is up to date, just run it
+if [ "$need_compile" = false ]; then
+    exec "$GO_BINARY" "$@"
+fi
+
+# Need to compile - check if Go is available
 if ! command -v go &> /dev/null; then
-    echo "Error: Go is required but not installed."
-    echo "Install Go from https://go.dev/dl/ or via your package manager."
-    exit 1
+    echo "Warning: Go not installed, skipping SVG icon inlining."
+    echo "Icons may not display on GitHub. Install Go from https://go.dev/dl/ to enable."
+    exit 0
 fi
 
-# Compile if binary doesn't exist or source is newer
-if [ ! -f "$GO_BINARY" ] || [ "$GO_SOURCE" -nt "$GO_BINARY" ]; then
-    echo "Compiling inline-svg-icons..."
-    go build -o "$GO_BINARY" "$GO_SOURCE"
-fi
-
-# Run the binary with all arguments
+# Compile and run
+echo "Compiling inline-svg-icons..."
+go build -o "$GO_BINARY" "$GO_SOURCE"
 exec "$GO_BINARY" "$@"
