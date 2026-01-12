@@ -75,6 +75,7 @@ brew install d2          # macOS
 # or
 curl -fsSL https://d2lang.com/install.sh | sh -s --  # Linux
 ```
+Note: the plugin will guide you through installing D2 if not available.
 
 ---
 
