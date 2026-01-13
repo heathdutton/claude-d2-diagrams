@@ -67,6 +67,9 @@ More advanced/complex outputs will be generated as well.
 ```bash
 git clone https://github.com/heathdutton/claude-d2-diagrams.git
 claude --plugin-dir ./claude-d2-diagrams
+# or
+claude plugin marketplace add https://github.com/heathdutton/claude-d2-diagrams
+claude plugin install d2@claude-d2-diagrams
 ```
 
 **Requires [D2](https://d2lang.com/):**
