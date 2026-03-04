@@ -8,10 +8,7 @@
     {
       "name": "d2",
       "description": "Generate comprehensive infrastructure and architecture diagrams using D2",
-      "source": {
-        "source": "github",
-        "repo": "heathdutton/claude-d2-diagrams"
-      }
+      "source": "."
     }
   ]
 }
