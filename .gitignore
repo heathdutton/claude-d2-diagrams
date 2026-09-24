@@ -8,8 +8,3 @@
 .DS_Store
 Thumbs.db
 
-# Runtime state (when testing plugin locally)
-.diagram/
-
-# Compiled Go binaries
-scripts/.inline-svg-icons
