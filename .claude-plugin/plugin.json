@@ -1,10 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "d2",
-  "version": "1.0.0",
-  "description": "Generate comprehensive infrastructure and architecture diagrams using D2",
+  "displayName": "D2 Diagrams",
+  "version": "2.0.0",
+  "description": "Architecture and infrastructure diagrams from your code, drawn with D2 and kept fresh as the code changes",
   "author": {
     "name": "heathdutton"
   },
+  "homepage": "https://github.com/heathdutton/claude-d2-diagrams",
+  "repository": "https://github.com/heathdutton/claude-d2-diagrams",
   "license": "MIT",
-  "repository": "https://github.com/heathdutton/claude-d2-diagrams"
+  "keywords": ["diagrams", "d2", "architecture", "infrastructure", "terraform", "kubernetes", "documentation"]
 }
