@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "d2",
-      "description": "Generate comprehensive infrastructure and architecture diagrams using D2",
+      "description": "Architecture and infrastructure diagrams from your code, drawn with D2 and kept fresh as the code changes",
       "source": "./"
     }
   ]
