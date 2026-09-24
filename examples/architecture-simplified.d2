@@ -24,11 +24,11 @@ classes: {
 # External
 users: End Users (Web & Mobile) {
   class: external
-  icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+  icon: https://icons.d2lang.com/essentials%2F359-users.svg
 }
 partners: Partner Systems (API Integrations) {
   class: external
-  icon: https://icons.terrastruct.com/tech%2F022-server.svg
+  icon: https://icons.d2lang.com/tech%2F022-server.svg
 }
 
 # System layers
@@ -36,29 +36,28 @@ system: Platform Core (Go Monolith) {
   # API
   gateway: API Gateway (REST + GraphQL) {
     class: api
-    icon: https://icons.terrastruct.com/dev%2Fgo.svg
+    icon: https://icons.d2lang.com/dev%2Fgo.svg
   }
 
   # Message Broker
   broker: Message Broker (Kafka) {
     class: processing
     shape: queue
-    # Note: Kafka icon URL returns 403, using shape-only
   }
 
   # Processing
   processing: Processing Services {
     orders: Order Processor (Go) {
       class: processing
-      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+      icon: https://icons.d2lang.com/dev%2Fgo.svg
     }
     notifications: Notification Service (Go) {
       class: processing
-      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+      icon: https://icons.d2lang.com/dev%2Fgo.svg
     }
     analytics: Analytics Pipeline (Go) {
       class: processing
-      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+      icon: https://icons.d2lang.com/dev%2Fgo.svg
     }
   }
 
@@ -67,12 +66,12 @@ system: Platform Core (Go Monolith) {
     primary: Primary Database (PostgreSQL) {
       class: data
       shape: cylinder
-      icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+      icon: https://icons.d2lang.com/dev%2Fpostgresql.svg
     }
     cache: Fast Cache (Redis) {
       class: data
       shape: hexagon
-      icon: https://icons.terrastruct.com/dev%2Fredis.svg
+      icon: https://icons.d2lang.com/dev%2Fredis.svg
     }
     search: Search Index (Elasticsearch) {
       class: data
@@ -80,7 +79,7 @@ system: Platform Core (Go Monolith) {
     }
     files: Object Storage (S3) {
       class: data
-      icon: https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+      icon: https://icons.d2lang.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
     }
   }
 }
@@ -88,11 +87,9 @@ system: Platform Core (Go Monolith) {
 # External services
 payments: Payment Gateway (Stripe) {
   class: external
-  # Note: Stripe icon not available
 }
 monitoring: Observability (Datadog) {
   class: external
-  # Note: Datadog icon not available
 }
 
 # Data flow

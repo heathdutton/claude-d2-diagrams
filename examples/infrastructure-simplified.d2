@@ -29,7 +29,7 @@ classes: {
 # External
 clients: External Clients {
   class: external
-  icon: https://icons.terrastruct.com/essentials%2F359-users.svg
+  icon: https://icons.d2lang.com/essentials%2F359-users.svg
 }
 
 # AWS Cloud boundary
@@ -39,6 +39,7 @@ aws: AWS Cloud (us-east-1) {
     alb: Load Balancer (ALB) {
       class: edge
       shape: hexagon
+      icon: https://icons.d2lang.com/aws%2FNetworking%20%26%20Content%20Delivery%2FElastic-Load-Balancing.svg
     }
   }
 
@@ -46,18 +47,18 @@ aws: AWS Cloud (us-east-1) {
   compute: Application Layer (ECS Fargate) {
     api: API Service (Go) {
       class: compute
-      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+      icon: https://icons.d2lang.com/dev%2Fgo.svg
     }
     workers: Background Workers (Go) {
       class: compute
-      icon: https://icons.terrastruct.com/dev%2Fgo.svg
+      icon: https://icons.d2lang.com/dev%2Fgo.svg
     }
   }
 
   # Messaging
   messaging: Message Broker (MSK Kafka) {
     class: messaging
-    # Note: Kafka icon URL returns 403, using shape-only
+    icon: https://icons.d2lang.com/aws%2FAnalytics%2FAmazon-Managed-Streaming-for-Kafka.svg
   }
 
   # Data
@@ -65,21 +66,21 @@ aws: AWS Cloud (us-east-1) {
     database: Database (Aurora PostgreSQL) {
       class: data
       shape: cylinder
-      icon: https://icons.terrastruct.com/dev%2Fpostgresql.svg
+      icon: https://icons.d2lang.com/dev%2Fpostgresql.svg
     }
     cache: Cache (ElastiCache Redis) {
       class: data
       shape: hexagon
-      icon: https://icons.terrastruct.com/dev%2Fredis.svg
+      icon: https://icons.d2lang.com/dev%2Fredis.svg
     }
     sessions: Session Store (DynamoDB) {
       class: data
       shape: cylinder
-      icon: https://icons.terrastruct.com/aws%2FDatabase%2FAmazon-DynamoDB.svg
+      icon: https://icons.d2lang.com/aws%2FDatabase%2FAmazon-DynamoDB.svg
     }
     documents: Document Store (S3) {
       class: data
-      icon: https://icons.terrastruct.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
+      icon: https://icons.d2lang.com/aws%2FStorage%2FAmazon-Simple-Storage-Service-S3.svg
     }
   }
 }
@@ -87,10 +88,10 @@ aws: AWS Cloud (us-east-1) {
 # External services
 monitoring: Observability (Datadog) {
   class: external
-  # Note: Datadog icon not available, using cloud shape
 }
 cdn: CDN (CloudFront) {
   class: external
+  icon: https://icons.d2lang.com/aws%2FNetworking%20%26%20Content%20Delivery%2FAmazon-CloudFront.svg
 }
 
 # Client flow
