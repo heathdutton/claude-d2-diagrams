@@ -2,48 +2,24 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "",
+        "matcher": "startup",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/check-d2.sh",
-            "timeout": 5000
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/status.sh\" --nudge",
+            "timeout": 10
           }
         ]
       }
     ],
-    "UserPromptSubmit": [
+    "PreToolUse": [
       {
-        "matcher": "",
+        "matcher": "Agent",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/keyword-trigger.sh",
-            "timeout": 2000
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/d2-validator.sh",
-            "timeout": 10000
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/todo-continuation.sh",
-            "timeout": 3000
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/foreground-agents.py\"",
+            "timeout": 10
           }
         ]
       }
