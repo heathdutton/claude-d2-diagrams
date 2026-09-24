@@ -1,0 +1,38 @@
+/* Flow animations that enhance-svg.sh injects into every render.
+ * A project can override this file with its own ./diagrams/animations.css.
+ * The rules only touch stroke offsets, never color, so one file serves the light and dark renders
+ * alike, and text is pinned so no animation can reach a label.
+ */
+
+/* A dash loop seams invisibly only when the offset it travels equals the dash period.
+ * Solid connections get an 8 + 4 pattern to match this 12px offset, and only while motion is
+ * allowed: a still frame of that pattern would make sync edges look as dashed as async ones.
+ * Dashed connections keep the pattern d2 sized to their length: enhance-svg.sh gives each its own
+ * keyframes and inline animation, which outrank this rule. */
+@keyframes traffic-flow {
+  from { stroke-dashoffset: 12px; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  path[marker-end] {
+    stroke-dasharray: 8 4;
+    animation: traffic-flow 1s linear infinite;
+  }
+}
+
+text,
+tspan,
+textPath,
+.text {
+  animation: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* !important, or the inline animations on dashed connections would outrank it. */
+@media (prefers-reduced-motion: reduce) {
+  path[marker-end] {
+    animation: none !important;
+  }
+}
